@@ -1,3 +1,4 @@
+#Trabajo presentado por: Alejandro Arias Lopez, Jose Leonardo Lopez
 from gestor import GestorEmpresa  # Importa la clase que gestiona clientes, inventario y reservas
 from sistema import SistemaInterfaz  # Importa la interfaz interactiva de consola
 from simulacion import cargar_datos_iniciales  # Importa la funcion para cargar clientes base
