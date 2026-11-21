@@ -2,7 +2,7 @@
 gestor.py
 Logica de negocio: clientes, inventario y reservas en memoria (sin base de datos).
 
-Version inicial: Jose Leonardo Lopez Rangel.
+Version inicial: Jose Leonardo Lopez Rangel y Alejandro Arias Lopez.
 Complemento: Jimena Jacome Contreras (excepciones personalizadas, registro en
 sistema.log, confirmacion y procesamiento de reservas, try/except/else/finally
 y encadenamiento de excepciones).

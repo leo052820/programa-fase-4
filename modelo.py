@@ -2,7 +2,7 @@
 modelo.py
 Clases del dominio: entidad abstracta, cliente, servicios y reserva.
 
-Version inicial: Jose Leonardo Lopez Rangel (clientes, servicios, tarifas,
+Version inicial: Jose Leonardo Lopez Rangel y Alejandro Arias Lopez (clientes, servicios, tarifas,
 proyector, limite de 4 horas en asesorias y reserva con cancelacion).
 Complemento: Jimena Jacome Contreras (clase abstracta general, validaciones
 y encapsulacion del cliente, excepciones personalizadas, metodos sobrescritos
