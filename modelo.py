@@ -14,7 +14,7 @@ import re  # Complemento: expresiones regulares para validar formatos
 from abc import ABC, abstractmethod  # Importa ABC y abstractmethod para crear clases abstractas (plantillas base)
 from datetime import datetime  # Complemento: fecha de creacion de cada entidad
 from functools import singledispatchmethod  # Complemento: sobrecarga de metodos segun el tipo del argumento
-from excepciones import (ValidacionError, ParametroFaltanteError, CalculoInconsistenteError,
+from excepciones import (ValidacionError, ParametroFaltanteError, CalculoInconsistenteError,  # Importa las excepciones personalizadas del dominio
                          OperacionNoPermitidaError, ReservaError, SoftwareFJError)  # Complemento: errores propios
 
 IVA = 0.19  # Complemento: impuesto por defecto (19 %)
@@ -34,11 +34,11 @@ class EntidadBase(ABC):  # Complemento: clase abstracta que representa cualquier
         return self._fecha_creacion  # Devuelve la fecha guardada
 
     @abstractmethod  # Las clases hijas deben implementarlo
-    def obtener_detalle(self) -> str:
+    def obtener_detalle(self) -> str:  # Firma del metodo para describir la entidad
         """Devuelve una descripcion en texto de la entidad."""
 
     @abstractmethod  # Las clases hijas deben implementarlo
-    def validar(self):
+    def validar(self):  # Firma del metodo para validar la entidad
         """Verifica que la entidad sea consistente; lanza una excepcion si no lo es."""
 
 
@@ -77,7 +77,7 @@ class Cliente(EntidadBase):  # Define la clase que representa a un cliente de la
             raise ParametroFaltanteError("nombre")  # Lanza error si falta
         valor = str(valor).strip()  # Quita espacios al inicio y al final
         if len(valor) < 3 or not all(c.isalpha() or c.isspace() for c in valor):  # Solo letras y espacios
-            raise ValidacionError("nombre", "debe tener al menos 3 letras y no incluir numeros ni simbolos")
+            raise ValidacionError("nombre", "debe tener al menos 3 letras y no incluir numeros ni simbolos")  # Lanza error si el nombre no cumple
         self.__nombre = valor.title()  # Guarda el nombre con mayuscula inicial
 
     @property
@@ -129,7 +129,7 @@ class Servicio(EntidadBase):  # Clase abstracta base que heredan todos los servi
         """Descripcion del servicio."""
 
     @abstractmethod  # Complemento: cada servicio valida sus propios parametros
-    def validar_parametros(self):
+    def validar_parametros(self):  # Firma del metodo que cada servicio sobrescribe
         """Valida los datos propios del servicio; lanza ValidacionError si algo no cumple."""
 
     def validar(self):  # Complemento: validacion general del servicio
@@ -138,7 +138,7 @@ class Servicio(EntidadBase):  # Clase abstracta base que heredan todos los servi
         return True  # Si no hubo excepcion, el servicio es valido
 
     # ----- Complemento: calculo con parametros opcionales (sobrecarga) -----
-    def calcular_costo(self, impuesto=None, descuento=None, rebaja=None) -> float:
+    def calcular_costo(self, impuesto=None, descuento=None, rebaja=None) -> float:  # Complemento: metodo con parametros opcionales
         """Precio con impuesto y descuento opcionales (de 0 a 1) y rebaja opcional en pesos."""
         precio = self.calcular_precio()  # Precio base calculado por cada servicio
         if descuento is not None:  # Si se pidio descuento porcentual...
@@ -152,7 +152,7 @@ class Servicio(EntidadBase):  # Clase abstracta base que heredan todos los servi
                 raise ValidacionError("impuesto", "debe estar entre 0 y 1")  # Impuesto invalido
             precio *= (1 + impuesto)  # Aplica el impuesto
         if precio <= 0:  # Un precio cero o negativo no tiene sentido
-            raise CalculoInconsistenteError(f"Precio invalido (${precio:,.0f}) para {self.obtener_detalle()}")
+            raise CalculoInconsistenteError(f"Precio invalido (${precio:,.0f}) para {self.obtener_detalle()}")  # Lanza error de calculo inconsistente
         return round(precio, 2)  # Redondea a dos decimales
 
     @singledispatchmethod
@@ -172,8 +172,8 @@ class Servicio(EntidadBase):  # Clase abstracta base que heredan todos los servi
     @cotizar.register
     def _(self, opcion: dict):  # Variante 3: diccionario con impuesto, descuento o rebaja
         return self.calcular_costo(impuesto=opcion.get("impuesto", IVA),  # Pasa las opciones recibidas
-                                   descuento=opcion.get("descuento"),
-                                   rebaja=opcion.get("rebaja"))
+                                   descuento=opcion.get("descuento"),  # Descuento opcional
+                                   rebaja=opcion.get("rebaja"))  # Rebaja opcional
 
 
 class ReservaSala(Servicio):  # Subclase de Servicio para el alquiler de salas
@@ -192,7 +192,7 @@ class ReservaSala(Servicio):  # Subclase de Servicio para el alquiler de salas
     def validar_parametros(self):  # Complemento: metodo sobrescrito con las reglas de la sala
         """Valida el maximo de horas y la cantidad de personas."""
         if self.horas > self.MAXIMO_HORAS:  # No mas de 12 horas
-            raise ValidacionError("horas", f"una sala se reserva maximo {self.MAXIMO_HORAS} horas")
+            raise ValidacionError("horas", f"una sala se reserva maximo {self.MAXIMO_HORAS} horas")  # Lanza error si supera el maximo
         if not isinstance(self.num_personas, int) or self.num_personas <= 0:  # Comprueba que haya al menos una persona en la sala
             raise ValidacionError("personas", "La cantidad de personas debe ser mayor a 0.")  # Numero de personas invalido
 
@@ -222,7 +222,7 @@ class AlquilerEquipo(Servicio):  # Subclase de Servicio para el alquiler de equi
     def validar_parametros(self):  # Complemento: metodo sobrescrito con las reglas del alquiler
         """Valida el maximo de horas, el nombre del equipo y la cantidad."""
         if self.horas > self.MAXIMO_HORAS:  # No mas de 72 horas
-            raise ValidacionError("horas", f"un equipo se alquila maximo {self.MAXIMO_HORAS} horas")
+            raise ValidacionError("horas", f"un equipo se alquila maximo {self.MAXIMO_HORAS} horas")  # Lanza error si supera el maximo
         if not self.nombre_equipo:  # El nombre del equipo es obligatorio
             raise ParametroFaltanteError("nombre del equipo")  # Lanza error si falta
         if not isinstance(self.cantidad, int) or self.cantidad <= 0:  # Verifica que se solicite al menos una unidad del equipo

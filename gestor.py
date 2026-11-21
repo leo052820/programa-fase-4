@@ -9,7 +9,7 @@ y encadenamiento de excepciones).
 """
 
 from modelo import Cliente, Servicio, Reserva, AlquilerEquipo  # Importa las clases del modelo de dominio
-from excepciones import (SoftwareFJError, ClienteError, ReservaError,
+from excepciones import (SoftwareFJError, ClienteError, ReservaError,  # Importa las excepciones personalizadas que usa el gestor
                          StockInsuficienteError, ServicioNoDisponibleError)  # Complemento: excepciones del sistema
 from registro import obtener_logger  # Complemento: logger que escribe en sistema.log
 
@@ -29,7 +29,7 @@ class GestorEmpresa:  # Clase encargada de gestionar clientes, inventario y rese
             "Tablet": 8,  # 8 tablets disponibles inicialmente
             "Camara": 5,  # 5 camaras disponibles inicialmente
             "Kit VR": 3  # 3 kits de realidad virtual disponibles inicialmente
-        }
+        }  # Cierra el diccionario de inventario
         log.info("Sistema iniciado")  # Complemento: registra el arranque en el archivo de logs
 
     def registrar_error(self, operacion, error):  # Complemento: centraliza el registro de errores
@@ -74,7 +74,7 @@ class GestorEmpresa:  # Clase encargada de gestionar clientes, inventario y rese
 
             if isinstance(servicio, AlquilerEquipo):  # Verifica si el servicio solicitado es alquiler de equipo
                 if servicio.nombre_equipo not in self.inventario_equipos:  # Complemento: el equipo debe existir
-                    raise ServicioNoDisponibleError(f"El equipo '{servicio.nombre_equipo}' no existe en el catalogo.")
+                    raise ServicioNoDisponibleError(f"El equipo '{servicio.nombre_equipo}' no existe en el catalogo.")  # Equipo inexistente
                 disponibles = self.inventario_equipos.get(servicio.nombre_equipo, 0)  # Consulta unidades disponibles del equipo
                 if servicio.cantidad > disponibles:  # Revisa si hay suficiente stock para cubrir la solicitud
                     raise StockInsuficienteError(servicio.nombre_equipo, disponibles, servicio.cantidad)  # Sin stock
@@ -145,5 +145,5 @@ class GestorEmpresa:  # Clase encargada de gestionar clientes, inventario y rese
         procesadas = [r for r in self.reservas if r.estado == "PROCESADA"]  # Reservas cobradas
         ingresos = sum(r.total for r in procesadas)  # Suma de lo cobrado
         return (f"Clientes: {len(self.clientes)} | Reservas: {len(self.reservas)} | "  # Arma el texto del resumen
-                f"Procesadas: {len(procesadas)} | Ingresos: ${ingresos:,.0f} | "
-                f"Errores controlados: {self.errores_controlados}")
+                f"Procesadas: {len(procesadas)} | Ingresos: ${ingresos:,.0f} | "  # Agrega procesadas e ingresos
+                f"Errores controlados: {self.errores_controlados}")  # Agrega los errores controlados

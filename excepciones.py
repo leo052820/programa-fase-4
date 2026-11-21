@@ -55,7 +55,7 @@ class StockInsuficienteError(ServicioNoDisponibleError):  # No hay unidades sufi
 
     def __init__(self, equipo, disponibles, solicitados):  # Recibe equipo, disponibles y solicitados
         super().__init__(f"Stock insuficiente para '{equipo}'. "  # Construye el mensaje detallado
-                         f"Disponibles: {disponibles}, Solicitados: {solicitados}.")
+                         f"Disponibles: {disponibles}, Solicitados: {solicitados}.")  # Muestra disponibles vs solicitados
         self.codigo = "FJ-305"  # Codigo especifico de inventario
 
 
