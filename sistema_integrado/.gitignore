@@ -1,0 +1,10 @@
+# Archivos generados por Python
+__pycache__/
+*.pyc
+
+# Archivos de registro generados al ejecutar el sistema
+logs/
+
+# Configuración local del editor y entornos virtuales
+.vscode/
+.venv/
