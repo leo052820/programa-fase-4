@@ -15,6 +15,7 @@ con **manejo avanzado de excepciones** y registro de eventos en un archivo de lo
 
 | Integrante | Aporte |
 |---|---|
+| Alejandro Arias López | Identificación de los integrantes del grupo en la versión inicial (`main.py`) |
 | José Leonardo López Rangel | Versión inicial: modelo de servicios con tarifas, inventario de equipos con stock, menú interactivo por consola y simulación inicial |
 | Jimena Jácome Contreras | Clase abstracta de entidades, Cliente con encapsulación y validaciones, excepciones personalizadas, archivo de logs, métodos sobrecargados, ciclo de estados de la reserva, simulación de 19 operaciones, pruebas unitarias e integración del menú y el inventario |
 
