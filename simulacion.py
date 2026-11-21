@@ -2,7 +2,7 @@
 simulacion.py
 Simulacion automatica con operaciones validas e invalidas.
 
-Version inicial: Jose Leonardo Lopez Rangel (pasos 1 a 6).
+Version inicial: Jose Leonardo Lopez Rangel y Alejandro Arias Lopez (pasos 1 a 6).
 Complemento: Jimena Jacome Contreras (operaciones 7 a 18: errores de
 validacion, stock, estados, calculo inconsistente, encadenamiento y
 metodos sobrecargados). El sistema sigue funcionando aunque ocurran errores.

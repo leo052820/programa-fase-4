@@ -2,7 +2,7 @@
 sistema.py
 Interfaz por consola (menu interactivo).
 
-Version inicial: Jose Leonardo Lopez Rangel.
+Version inicial: Jose Leonardo Lopez Rangel y Alejandro Arias Lopez.
 Complemento: Jimena Jacome Contreras (opciones para confirmar y procesar
 reservas, resumen, cotizacion con IVA y manejo de excepciones personalizadas).
 """
