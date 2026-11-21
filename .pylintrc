@@ -1,0 +1,12 @@
+# Configuracion de pylint para el proyecto
+[FORMAT]
+max-line-length=160
+
+[DESIGN]
+max-attributes=10
+min-public-methods=1
+max-branches=16
+
+[MESSAGES CONTROL]
+# El Anexo 3 pide usar try/except/else de forma explicita
+disable=no-else-raise,broad-exception-caught
