@@ -1,9 +1,0 @@
-[MAIN]
-# Configuración de pylint para el proyecto
-
-[FORMAT]
-max-line-length=120
-
-[DESIGN]
-# Cliente tiene 4 propiedades validadas más sus 4 atributos privados
-max-attributes=10
